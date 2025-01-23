@@ -8,59 +8,143 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        const Text(
-          "Welcome to our market",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        Card(
-          color: AppColors.kWhiteColor,
-          margin: const EdgeInsets.all(24),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                const CustomTextFormField(
-                  labelText: "Email",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextFormField(
-                  labelText: "Password",
-                  isSecured: true,
-                  suffIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.visibility_off),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    CustomTextButton(
-                      text: 'Forget Password?',
-                      onTap: () {},
-                    ),
-                  ],
-                )
-              ],
-            ),
+            child: SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
           ),
+          const Text(
+            "Welcome to our market",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Card(
+            color: AppColors.kWhiteColor,
+            margin: const EdgeInsets.all(24),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const CustomTextFormField(
+                    labelText: "Email",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    labelText: "Password",
+                    isSecured: true,
+                    suffIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.visibility_off),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomTextButton(
+                        text: 'Forget Password?',
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomRowWithArrowBtn(
+                    text: 'Login',
+                    onTap: () {},
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomRowWithArrowBtn(
+                    text: 'Login with Google',
+                    onTap: () {},
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      CustomTextButton(
+                        text: "Sign Up",
+                        onTap: () {},
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    )));
+  }
+}
+
+class CustomRowWithArrowBtn extends StatelessWidget {
+  const CustomRowWithArrowBtn({
+    super.key,
+    required this.text,
+    this.onTap,
+  });
+  final String text;
+  final void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        CustomArrowBtn(
+          onTap: onTap,
         )
       ],
-    )));
+    );
+  }
+}
+
+class CustomArrowBtn extends StatelessWidget {
+  const CustomArrowBtn({
+    super.key,
+    this.onTap,
+  });
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.kPrimaryColor,
+            foregroundColor: AppColors.kWhiteColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16))),
+        onPressed: onTap,
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          child: Icon(Icons.arrow_forward),
+        ));
   }
 }
 
@@ -79,7 +163,7 @@ class CustomTextButton extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
             color: AppColors.kPrimaryColor,
             fontWeight: FontWeight.bold,
             fontSize: 18),
