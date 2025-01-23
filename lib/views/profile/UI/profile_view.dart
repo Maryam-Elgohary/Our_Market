@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
+import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/views/profile/UI/widgets/custom_row_btn.dart';
+import 'package:our_market/views/profile/UI/widgets/edit_name_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -35,7 +38,11 @@ class ProfileView extends StatelessWidget {
                 const Text("maryamelgohary4@gmail.com"),
                 const SizedBox(height: 10),
                 CustomRowBtn(
-                    icon: Icons.person, text: "Edit Profile", onTap: () {}),
+                    icon: Icons.person,
+                    text: "Edit Name",
+                    onTap: () {
+                      naviagteTo(context, EditNameView());
+                    }),
                 const SizedBox(height: 10),
                 CustomRowBtn(
                     icon: Icons.shopping_basket,
@@ -49,4 +56,3 @@ class ProfileView extends StatelessWidget {
     );
   }
 }
-
