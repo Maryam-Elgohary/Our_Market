@@ -9,7 +9,13 @@ class HomeView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
-        children: [CustomSearchField()],
+        children: [
+          const CustomSearchField(),
+          const SizedBox(
+            height: 20,
+          ),
+          Image.asset("assets/buy.jpg")
+        ],
       ),
     );
   }
