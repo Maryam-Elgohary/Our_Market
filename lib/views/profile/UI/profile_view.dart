@@ -11,7 +11,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.7,
+      height: MediaQuery.sizeOf(context).height * 0.75,
       child: Card(
         color: AppColors.kWhiteColor,
         margin: const EdgeInsets.all(24),
