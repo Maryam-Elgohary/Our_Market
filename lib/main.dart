@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/views/auth/UI/login_view.dart';
 
 void main() {
@@ -11,8 +12,10 @@ class OurMarket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Our Market',
       theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.kScaffoldColor,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
