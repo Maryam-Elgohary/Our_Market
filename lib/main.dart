@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
-import 'package:our_market/views/auth/UI/login_view.dart';
+import 'package:our_market/views/nav_bar/UI/main_home_view.dart';
 
 void main() {
   runApp(const OurMarket());
@@ -19,7 +19,7 @@ class OurMarket extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginView(),
+      home: MainHomeView(),
     );
   }
 }
