@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
-import 'package:our_market/core/functions/navigate_to.dart';
-import 'package:our_market/views/auth/UI/forget_view.dart';
-import 'package:our_market/views/auth/UI/signup_view.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_row_with_arrow.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_text_btn.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_text_field.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class SignupView extends StatelessWidget {
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +34,13 @@ class LoginView extends StatelessWidget {
               child: Column(
                 children: [
                   const CustomTextFormField(
+                    labelText: "Name",
+                    keyboardType: TextInputType.name,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const CustomTextFormField(
                     labelText: "Email",
                     keyboardType: TextInputType.emailAddress,
                   ),
@@ -55,29 +59,15 @@ class LoginView extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomTextButton(
-                        text: 'Forget Password?',
-                        onTap: () {
-                          naviagteTo(context, const ForgetView());
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   CustomRowWithArrowBtn(
-                    text: 'Login',
+                    text: 'Sign Up',
                     onTap: () {},
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CustomRowWithArrowBtn(
-                    text: 'Login with Google',
+                    text: 'Sign Up with Google',
                     onTap: () {},
                   ),
                   const SizedBox(
@@ -87,7 +77,7 @@ class LoginView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't have an account?",
+                        "Already have an account?",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -95,9 +85,9 @@ class LoginView extends StatelessWidget {
                         width: 5,
                       ),
                       CustomTextButton(
-                        text: "Sign Up",
+                        text: "Login",
                         onTap: () {
-                          naviagteTo(context, const SignupView());
+                          Navigator.pop(context);
                         },
                       )
                     ],
