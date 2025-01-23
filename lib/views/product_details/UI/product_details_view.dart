@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:our_market/core/components/cache_image.dart';
 import 'package:our_market/core/functions/build_appbar.dart';
+import 'package:our_market/views/auth/UI/widgets/custom_text_field.dart';
+import 'package:our_market/views/product_details/UI/widgets/comments_list.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key});
@@ -68,7 +70,32 @@ class ProductDetailsView extends StatelessWidget {
                   onRatingUpdate: (rating) {
                     print(rating);
                   },
-                )
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                CustomTextFormField(
+                  labelText: "Type your feedback",
+                  suffIcon: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.send)),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      "Comments",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CommentsList()
               ],
             ),
           )
