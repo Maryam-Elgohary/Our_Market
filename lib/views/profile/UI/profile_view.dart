@@ -6,60 +6,47 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
-      color: AppColors.kWhiteColor,
-      margin: EdgeInsets.all(24),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16))),
-      child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 55,
-                backgroundColor: AppColors.kPrimaryColor,
-                foregroundColor: AppColors.kWhiteColor,
-                child: Icon(
-                  Icons.person,
-                  size: 40,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Maryam Elgohary",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text("maryamelgohary4@gmail.com"),
-              SizedBox(height: 10),
-              Card(
-                color: AppColors.kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.person,
-                        color: AppColors.kWhiteColor,
-                      ),
-                      Text(
-                        "Edit Name",
-                        style: TextStyle(
-                            fontSize: 20, color: AppColors.kWhiteColor),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: AppColors.kWhiteColor,
-                      ),
-                    ],
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * 0.7,
+      child: Card(
+        color: AppColors.kWhiteColor,
+        margin: const EdgeInsets.all(24),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16))),
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 55,
+                  backgroundColor: AppColors.kPrimaryColor,
+                  foregroundColor: AppColors.kWhiteColor,
+                  child: Icon(
+                    Icons.person,
+                    size: 40,
                   ),
                 ),
-              )
-            ],
-          )),
+                const SizedBox(height: 10),
+                const Text(
+                  "Maryam Elgohary",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                const Text("maryamelgohary4@gmail.com"),
+                const SizedBox(height: 10),
+                CustomRowBtn(
+                    icon: Icons.person, text: "Edit Profile", onTap: () {}),
+                const SizedBox(height: 10),
+                CustomRowBtn(
+                    icon: Icons.shopping_basket,
+                    text: "My Orders",
+                    onTap: () {}),
+                const SizedBox(height: 10),
+                CustomRowBtn(icon: Icons.logout, text: "Log Out", onTap: () {})
+              ],
+            )),
+      ),
     );
   }
 }
+
