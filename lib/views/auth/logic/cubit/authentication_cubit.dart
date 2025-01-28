@@ -51,7 +51,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         '821287914646-k41dsjdl2hhn1ju7rs68998vco27estn.apps.googleusercontent.com';
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
-      //clientId: iosClientId,
       serverClientId: webClientId,
     );
     googleUser = await googleSignIn.signIn();
