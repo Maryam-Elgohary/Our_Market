@@ -21,6 +21,7 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isPasswordHidden = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +83,16 @@ class _SignupViewState extends State<SignupView> {
                                   CustomTextFormField(
                                     labelText: "Password",
                                     keyboardType: TextInputType.visiblePassword,
-                                    isSecured: true,
+                                    isSecured: isPasswordHidden,
                                     suffIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(() {
+                                          isPasswordHidden = !isPasswordHidden;
+                                        });
+                                      },
+                                      icon: Icon(isPasswordHidden
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
                                     ),
                                   ),
                                   const SizedBox(
