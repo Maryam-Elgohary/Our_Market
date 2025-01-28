@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'authentication_state.dart';
@@ -40,5 +41,39 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       log(e.toString());
       emit(SignUpError(e.toString()));
     }
+  }
+
+  GoogleSignInAccount? googleUser;
+  Future<AuthResponse> googleSignIn() async {
+    emit(GoogleSignInLoading());
+
+    const webClientId =
+        '821287914646-k41dsjdl2hhn1ju7rs68998vco27estn.apps.googleusercontent.com';
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      //clientId: iosClientId,
+      serverClientId: webClientId,
+    );
+    googleUser = await googleSignIn.signIn();
+    if (googleUser == null) {
+      return AuthResponse();
+    }
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
+
+    if (accessToken == null || idToken == null) {
+      emit(GoogleSignInError());
+      return AuthResponse();
+    }
+
+    AuthResponse response = await client.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+
+    emit(GoogleSignInSuccess());
+    return response;
   }
 }
