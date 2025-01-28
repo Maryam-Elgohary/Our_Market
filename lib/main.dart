@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
-import 'package:our_market/views/nav_bar/UI/main_home_view.dart';
+import 'package:our_market/views/auth/UI/login_view.dart';
+import 'package:our_market/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -19,15 +21,18 @@ class OurMarket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Our Market',
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.kScaffoldColor,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) => AuthenticationCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Our Market',
+        theme: ThemeData(
+          scaffoldBackgroundColor: AppColors.kScaffoldColor,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: LoginView(),
       ),
-      home: MainHomeView(),
     );
   }
 }
