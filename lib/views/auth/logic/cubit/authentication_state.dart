@@ -28,3 +28,9 @@ final class GoogleSignInSuccess extends AuthenticationState {}
 final class GoogleSignInLoading extends AuthenticationState {}
 
 final class GoogleSignInError extends AuthenticationState {}
+
+final class PasswordResetLoading extends AuthenticationState {}
+
+final class PasswordResetSuccess extends AuthenticationState {}
+
+final class PasswordResetError extends AuthenticationState {}

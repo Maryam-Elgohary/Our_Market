@@ -52,7 +52,8 @@ class ProfileView extends StatelessWidget {
                       naviagteTo(context, MyOrdersView());
                     }),
                 const SizedBox(height: 10),
-                CustomRowBtn(icon: Icons.logout, text: "Log Out", onTap: () {})
+                CustomRowBtn(
+                    icon: Icons.logout, text: "Log Out", onTap: () async {})
               ],
             )),
       ),
