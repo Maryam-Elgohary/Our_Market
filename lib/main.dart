@@ -28,7 +28,7 @@ class OurMarket extends StatelessWidget {
     SupabaseClient client = Supabase.instance.client;
 
     return BlocProvider(
-      create: (context) => AuthenticationCubit(),
+      create: (context) => AuthenticationCubit()..getUserData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Our Market',

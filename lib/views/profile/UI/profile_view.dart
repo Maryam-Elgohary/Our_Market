@@ -9,6 +9,7 @@ import 'package:our_market/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:our_market/views/profile/UI/my_orders.dart';
 import 'package:our_market/views/profile/UI/widgets/custom_row_btn.dart';
 import 'package:our_market/views/profile/UI/widgets/edit_name_view.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -22,6 +23,7 @@ class ProfileView extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        UserDataModel? user = context.read<AuthenticationCubit>().userDataModel;
         return state is LogoutLoading
             ? const CustomCircleProIndicator()
             : Center(
@@ -46,12 +48,12 @@ class ProfileView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            const Text(
-                              "Maryam Elgohary",
+                            Text(
+                              user?.name ?? "name",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 10),
-                            const Text("maryamelgohary4@gmail.com"),
+                            Text(user?.email ?? "email"),
                             const SizedBox(height: 10),
                             CustomRowBtn(
                                 icon: Icons.person,

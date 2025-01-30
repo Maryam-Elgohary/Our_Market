@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'authentication_state.dart';
@@ -15,8 +16,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
     try {
-      await client.auth.signInWithPassword(password: password, email: email);
-      emit(LoginSuccess());
+      final result = await client.auth
+          .signInWithPassword(password: password, email: email);
+      if (result.user != null) {
+        // User is signed in, now fetch their data
+        await getUserData();
+        emit(LoginSuccess());
+      } else {
+        log("Login failed: no user returned.");
+        emit(LoginError("Login failed"));
+      }
     } on AuthException catch (e) {
       log(e.toString());
       emit(LoginError(e.message));
@@ -62,7 +71,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         userId: userId,
         name: googleUser!.displayName!,
         email: googleUser!.email);
-
+    await getUserData();
     emit(GoogleSignInSuccess());
     return response;
   }
@@ -108,6 +117,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
       // Add user data using the userId
       await addUserData(userId: userId, name: name, email: email);
+      await getUserData();
       emit(SignUpSuccess());
     } on AuthException catch (e) {
       log(e.toString());
@@ -134,6 +144,27 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (e) {
       log(e.toString());
       emit(UserDataAddedError());
+    }
+  }
+
+  UserDataModel? userDataModel;
+  Future<void> getUserData() async {
+    emit(GetUserDataLoading());
+    try {
+      final userId = client.auth.currentUser!.id;
+      final data = await client.from("users").select().eq('id', userId);
+      log(data.toString());
+      if (data.isNotEmpty) {
+        userDataModel = UserDataModel(
+          email: data[0]['email'],
+          name: data[0]['name'],
+          userId: data[0]['id'],
+        );
+        emit(GetUserDataSuccess());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(GetUserDataError());
     }
   }
 }
