@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/cache_image.dart';
 import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/core/models/product_model.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_elevated_btn.dart';
 import 'package:our_market/views/product_details/UI/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
-  });
-
+  ProductCard({super.key, required this.product});
+  ProductModel product;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,13 +20,13 @@ class ProductCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                const ClipRRect(
+                ClipRRect(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
                         bottomLeft: Radius.circular(16)),
                     child: CacheImage(
-                        url:
+                        url: product.imageUrl ??
                             "https://img.freepik.com/premium-psd/kitchen-product-podium-display-background_1101917-13418.jpg?w=900")),
                 Positioned(
                     child: Container(
@@ -39,8 +38,8 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(16),
                           bottomRight: Radius.circular(16))),
-                  child: const Text(
-                    "10% OFF",
+                  child: Text(
+                    "${product.sale}% OFF",
                     style: TextStyle(color: AppColors.kWhiteColor),
                   ),
                 ))
@@ -56,8 +55,8 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Product Name",
+                      Text(
+                        product.productName ?? "Product Name",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -72,15 +71,15 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         children: [
                           Text(
-                            "100 LE",
+                            "${product.price} LE",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "120 LE",
+                            "${product.oldPrice} LE",
                             style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
                                 fontSize: 18,
