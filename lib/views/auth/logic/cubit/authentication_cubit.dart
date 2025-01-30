@@ -26,23 +26,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
-  Future<void> register(
-      {required String name,
-      required String email,
-      required String password}) async {
-    emit(SignUpLoading());
-    try {
-      await client.auth.signUp(password: password, email: email);
-      emit(SignUpSuccess());
-    } on AuthException catch (e) {
-      log(e.toString());
-      emit(SignUpError(e.message));
-    } catch (e) {
-      log(e.toString());
-      emit(SignUpError(e.toString()));
-    }
-  }
-
   GoogleSignInAccount? googleUser;
   Future<AuthResponse> googleSignIn() async {
     emit(GoogleSignInLoading());
@@ -51,7 +34,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         '821287914646-k41dsjdl2hhn1ju7rs68998vco27estn.apps.googleusercontent.com';
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
-      
       serverClientId: webClientId,
     );
     googleUser = await googleSignIn.signIn();
@@ -96,6 +78,52 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (e) {
       log(e.toString());
       emit(LogoutError());
+    }
+  }
+
+  Future<void> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    emit(SignUpLoading());
+    try {
+      // Sign up the user and get the response
+      final authResponse = await client.auth
+          .signUp(password: password, email: email, data: {'full_name': name});
+
+      // Get the user ID from the response
+      final userId = authResponse.user?.id;
+      if (userId == null) {
+        throw Exception("User ID is null after sign-up");
+      }
+
+      // Add user data using the userId
+      await addUserData(userId: userId, name: name, email: email);
+      emit(SignUpSuccess());
+    } on AuthException catch (e) {
+      log(e.toString());
+      emit(SignUpError(e.message));
+    } catch (e) {
+      log(e.toString());
+      emit(SignUpError(e.toString()));
+    }
+  }
+
+  Future<void> addUserData({
+    required String userId,
+    required String name,
+    required String email,
+  }) async {
+    emit(UserDataAddedLoading());
+    try {
+      await client
+          .from('users')
+          .insert({'id': userId, 'name': name, 'email': email});
+      emit(UserDataAddedSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(UserDataAddedError());
     }
   }
 }

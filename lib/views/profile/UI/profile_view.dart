@@ -18,12 +18,12 @@ class ProfileView extends StatelessWidget {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
-          navigateWithoutBack(context, LoginView());
+          navigateWithoutBack(context, const LoginView());
         }
       },
       builder: (context, state) {
         return state is LogoutLoading
-            ? CustomCircleProIndicator()
+            ? const CustomCircleProIndicator()
             : Center(
                 child: SizedBox(
                   height: MediaQuery.sizeOf(context).height * 0.75,
@@ -57,14 +57,14 @@ class ProfileView extends StatelessWidget {
                                 icon: Icons.person,
                                 text: "Edit Name",
                                 onTap: () {
-                                  naviagteTo(context, EditNameView());
+                                  naviagteTo(context, const EditNameView());
                                 }),
                             const SizedBox(height: 10),
                             CustomRowBtn(
                                 icon: Icons.shopping_basket,
                                 text: "My Orders",
                                 onTap: () {
-                                  naviagteTo(context, MyOrdersView());
+                                  naviagteTo(context, const MyOrdersView());
                                 }),
                             const SizedBox(height: 10),
                             CustomRowBtn(

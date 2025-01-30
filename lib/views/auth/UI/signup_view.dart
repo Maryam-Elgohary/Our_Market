@@ -38,7 +38,7 @@ class _SignupViewState extends State<SignupView> {
       builder: (context, state) {
         return Scaffold(
             body: state is SignUpLoading
-                ? CustomCircleProIndicator()
+                ? const CustomCircleProIndicator()
                 : SafeArea(
                     child: SingleChildScrollView(
                     child: Form(
@@ -66,14 +66,16 @@ class _SignupViewState extends State<SignupView> {
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 children: [
-                                  const CustomTextFormField(
+                                  CustomTextFormField(
+                                    controller: _nameController,
                                     labelText: "Name",
                                     keyboardType: TextInputType.name,
                                   ),
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  const CustomTextFormField(
+                                  CustomTextFormField(
+                                    controller: _emailController,
                                     labelText: "Email",
                                     keyboardType: TextInputType.emailAddress,
                                   ),
@@ -81,6 +83,7 @@ class _SignupViewState extends State<SignupView> {
                                     height: 20,
                                   ),
                                   CustomTextFormField(
+                                    controller: _passwordController,
                                     labelText: "Password",
                                     keyboardType: TextInputType.visiblePassword,
                                     isSecured: isPasswordHidden,
@@ -102,13 +105,20 @@ class _SignupViewState extends State<SignupView> {
                                     text: 'Sign Up',
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
+                                        if (_nameController.text.isEmpty ||
+                                            _emailController.text.isEmpty ||
+                                            _passwordController.text.isEmpty) {
+                                          // Show an error message or handle the empty fields case
+                                          return;
+                                        }
                                         context
                                             .read<AuthenticationCubit>()
                                             .register(
-                                                name: _nameController.text,
-                                                email: _emailController.text,
-                                                password:
-                                                    _passwordController.text);
+                                              name: _nameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                            );
                                       }
                                     },
                                   ),
@@ -129,7 +139,7 @@ class _SignupViewState extends State<SignupView> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Already have an account?",
                                         style: TextStyle(
                                             fontSize: 18,

@@ -30,7 +30,7 @@ class _ForgetViewState extends State<ForgetView> {
       builder: (context, state) {
         return Scaffold(
           body: state is PasswordResetLoading
-              ? CustomCircleProIndicator()
+              ? const CustomCircleProIndicator()
               : SafeArea(
                   child: Form(
                   key: formKey,
@@ -39,9 +39,9 @@ class _ForgetViewState extends State<ForgetView> {
                       const SizedBox(
                         height: 24,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text(
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
                           "Enter your email to reset password",
                           style: TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold),

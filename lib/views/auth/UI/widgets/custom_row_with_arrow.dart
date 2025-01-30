@@ -16,7 +16,7 @@ class CustomRowWithArrowBtn extends StatelessWidget {
       children: [
         Text(
           text,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         CustomArrowBtn(
           onTap: onTap,

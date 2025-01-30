@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
         AuthenticationCubit cubit = context.read<AuthenticationCubit>();
         return Scaffold(
             body: state is LoginLoading
-                ? CustomCircleProIndicator()
+                ? const CustomCircleProIndicator()
                 : SafeArea(
                     child: SingleChildScrollView(
                     child: Form(
@@ -135,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Don't have an account?",
                                         style: TextStyle(
                                             fontSize: 18,

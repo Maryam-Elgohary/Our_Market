@@ -13,10 +13,10 @@ class MainHomeView extends StatelessWidget {
   MainHomeView({super.key});
 
   final List<Widget> views = [
-    HomeView(),
-    StoreView(),
-    FavoriteView(),
-    ProfileView()
+    const HomeView(),
+    const StoreView(),
+    const FavoriteView(),
+    const ProfileView()
   ];
 
   @override
@@ -32,7 +32,7 @@ class MainHomeView extends StatelessWidget {
                 color: AppColors.kWhiteColor,
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                 child: GNav(
                     onTabChange: (index) {
                       cubit.changeCurrentIndex(index);
@@ -43,7 +43,7 @@ class MainHomeView extends StatelessWidget {
                         AppColors.kPrimaryColor, // tab button hover color
                     //  curve: Curves.easeOutExpo, // tab animation curves
                     duration:
-                        Duration(milliseconds: 400), // tab animation duration
+                        const Duration(milliseconds: 400), // tab animation duration
                     gap: 8, // the tab button gap between icon and text
                     color: AppColors.kGreyColor, // unselected icon color
                     activeColor:
@@ -51,9 +51,9 @@ class MainHomeView extends StatelessWidget {
                     iconSize: 28, // tab button icon size
                     tabBackgroundColor: AppColors
                         .kPrimaryColor, // selected tab background color
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 12), // navigation bar padding
-                    tabs: [
+                    tabs: const [
                       GButton(
                         icon: LineIcons.home,
                         text: 'Home',

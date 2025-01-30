@@ -18,7 +18,7 @@ class CustomSearchField extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8))),
             onPressed: () {},
-            label: Icon(Icons.search)),
+            label: const Icon(Icons.search)),
         border: OutlineInputBorder(
             borderSide:
                 const BorderSide(color: AppColors.kBordersideColor, width: 2),

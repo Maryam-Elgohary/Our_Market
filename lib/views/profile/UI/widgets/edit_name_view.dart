@@ -11,10 +11,10 @@ class EditNameView extends StatelessWidget {
     return Scaffold(
       appBar: buildCustomAppBar(context, "Edit Name"),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CustomTextFormField(
+            const CustomTextFormField(
               labelText: "Enter Name",
               keyboardType: TextInputType.name,
             ),

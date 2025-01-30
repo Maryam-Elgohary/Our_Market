@@ -40,3 +40,9 @@ final class LogoutLoading extends AuthenticationState {}
 final class LogoutSuccess extends AuthenticationState {}
 
 final class LogoutError extends AuthenticationState {}
+
+final class UserDataAddedLoading extends AuthenticationState {}
+
+final class UserDataAddedSuccess extends AuthenticationState {}
+
+final class UserDataAddedError extends AuthenticationState {}

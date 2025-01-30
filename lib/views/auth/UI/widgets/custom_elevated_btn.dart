@@ -20,7 +20,7 @@ class CustomEBtn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16))),
         onPressed: onTap,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Text(text),
         ));
   }

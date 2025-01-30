@@ -68,7 +68,6 @@ class ProductDetailsView extends StatelessWidget {
                     color: Colors.amber,
                   ),
                   onRatingUpdate: (rating) {
-                    print(rating);
                   },
                 ),
                 const SizedBox(
@@ -95,7 +94,7 @@ class ProductDetailsView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                CommentsList()
+                const CommentsList()
               ],
             ),
           )
