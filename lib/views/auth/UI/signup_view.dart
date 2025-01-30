@@ -21,7 +21,7 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool isPasswordHidden = false;
+  bool isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
