@@ -114,6 +114,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               labelText: "Type your feedback",
                               suffIcon: IconButton(
                                   onPressed: () async {
+                                    await context
+                                        .read<AuthenticationCubit>()
+                                        .getUserData();
                                     await cubit.addComment(data: {
                                       "comment": _commentController.text,
                                       "for_user": cubit.userId,
