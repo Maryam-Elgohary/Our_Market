@@ -7,8 +7,9 @@ import 'package:our_market/views/auth/UI/widgets/custom_elevated_btn.dart';
 import 'package:our_market/views/product_details/UI/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
-  ProductCard({super.key, required this.product});
+  ProductCard({super.key, required this.product, this.onTap});
   ProductModel product;
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,7 +66,7 @@ class ProductCard extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: onTap,
                           icon: const Icon(
                             Icons.favorite,
                             color: AppColors.kGreyColor,
