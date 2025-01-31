@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:our_market/core/functions/api_services.dart';
+import 'package:our_market/core/models/favorite_product.dart';
 import 'package:our_market/core/models/product_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,6 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
+      getFavoriteProducts();
       search(query);
       getProductsByCategory(category);
       emit(GetDataSuccess());
@@ -86,5 +88,22 @@ class HomeCubit extends Cubit<HomeState> {
       log(e.toString());
       emit(RemoveFromFavoriteError());
     }
+  }
+
+  //get favorite products
+  List<ProductModel> favoriteProductList = [];
+  void getFavoriteProducts() {
+    for (ProductModel product in products) {
+      if (product.favoriteProducts != null &&
+          product.favoriteProducts!.isNotEmpty) {
+        for (FavoriteProduct favoriteProduct in product.favoriteProducts!) {
+          if (favoriteProduct.forUser == userId) {
+            favoriteProductList.add(product);
+            favoriteProducts.addAll({product.productId!: true});
+          }
+        }
+      }
+    }
+    log(favoriteProductList[0].productName.toString());
   }
 }
