@@ -3,38 +3,46 @@ import 'package:flutter/material.dart';
 class UserComment extends StatelessWidget {
   const UserComment({
     super.key,
+    required this.commentData,
   });
+  final Map<String, dynamic>? commentData;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         Row(
           children: [
             Text(
-              "User Name",
+              commentData?["user_name"] ?? "User Name",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
         Row(
           children: [
-            Text("Comment"),
+            Text(commentData?["comment"] ?? "comment"),
           ],
         ),
-        Row(
-          children: [
-            Text(
-              "Reply",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Text("Replay..."),
-          ],
-        )
+        commentData?["reply"] != null
+            ? Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Reply",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(commentData!["reply"]),
+                    ],
+                  )
+                ],
+              )
+            : Container()
       ],
     );
   }

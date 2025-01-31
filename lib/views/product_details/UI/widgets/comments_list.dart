@@ -14,29 +14,31 @@ class CommentsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: Supabase.instance.client
-            .from("coments_table")
+            .from("comments_table")
             .stream(primaryKey: ['id'])
             .eq("for_product", productModel.productId!)
             .order("created_at"),
         builder: (_, snapshot) {
-          SupabaseStreamEvent? data = snapshot.data;
+          List<Map<String, dynamic>>? data = snapshot.data;
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CustomCircleProIndicator(),
             );
           } else if (snapshot.hasData) {
             return ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => const UserComment(),
+                itemBuilder: (context, index) => UserComment(
+                      commentData: data?[index],
+                    ),
                 separatorBuilder: (context, index) => const Divider(),
-                itemCount: 10);
+                itemCount: data?.length ?? 0);
           } else if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: Text("No Comments Yet"),
             );
           } else {
-            return Center(
+            return const Center(
               child: Text("Something went wrong, please try again."),
             );
           }
