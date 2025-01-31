@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
+import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/views/home/UI/category_view.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({
@@ -16,15 +18,19 @@ class CategoriesList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                        radius: 30,
-                        backgroundColor: AppColors.kPrimaryColor,
-                        foregroundColor: AppColors.kWhiteColor,
-                        child: Icon(categories[index].icon, size: 40)),
-                    Text(categories[index].text)
-                  ],
+                child: GestureDetector(
+                  onTap: () => naviagteTo(
+                      context, CategoryView(category: categories[index].text)),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                          radius: 30,
+                          backgroundColor: AppColors.kPrimaryColor,
+                          foregroundColor: AppColors.kWhiteColor,
+                          child: Icon(categories[index].icon, size: 40)),
+                      Text(categories[index].text)
+                    ],
+                  ),
                 ),
               );
             }));
