@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/components/custom_search_field.dart';
 import 'package:our_market/core/components/prodcts_list.dart';
+import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/views/home/UI/search_view.dart';
 import 'package:our_market/views/home/UI/widgets/categories_list.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,7 +14,9 @@ class HomeView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          const CustomSearchField(),
+          CustomSearchField(
+            onPressed: () => naviagteTo(context, const SearchView()),
+          ),
           const SizedBox(
             height: 20,
           ),
