@@ -25,8 +25,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       for (var rate in response.data) {
         rates.add(Rate.fromJson(rate));
       }
-      print("The user rate is:");
-      log(rates[0].rate.toString());
       _getAverageRate();
       _getUserRate();
 
@@ -53,7 +51,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         averageRate += userRate.rate!;
       }
     }
-    averageRate = averageRate ~/ rates.length;
+    if (rates.isNotEmpty) {
+      averageRate = averageRate ~/ rates.length;
+    }
   }
 
   bool _isUserRateExist({required String productId}) {
