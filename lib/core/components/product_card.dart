@@ -12,7 +12,11 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => naviagteTo(context, const ProductDetailsView()),
+      onTap: () => naviagteTo(
+          context,
+          ProductDetailsView(
+            product: product,
+          )),
       child: Card(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16))),

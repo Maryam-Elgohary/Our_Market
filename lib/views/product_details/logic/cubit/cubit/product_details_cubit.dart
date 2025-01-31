@@ -12,7 +12,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
   final ApiServices _apiServices = ApiServices();
 
-  List<Rate> rates = [];
+  List<Rate> rates = []; //rate ==> int
   int averageRate = 0;
   Future<void> getRates({required String productId}) async {
     emit(GetRateLoading());
@@ -22,10 +22,25 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       for (var rate in response.data) {
         rates.add(Rate.fromJson(rate));
       }
+      print("The user rate is:");
+      log(rates[0].rate.toString());
+      getAverageRate();
+
+      log(averageRate.toString());
       emit(GetRateSuccess());
     } catch (e) {
       log(e.toString());
       emit(GetRateError());
     }
+  }
+
+  void getAverageRate() {
+    for (var userRate in rates) {
+      log(userRate.rate.toString());
+      if (userRate.rate != null) {
+        averageRate += userRate.rate!;
+      }
+    }
+    averageRate = averageRate ~/ rates.length;
   }
 }
