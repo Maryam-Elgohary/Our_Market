@@ -11,7 +11,7 @@ class CategoryView extends StatelessWidget {
       appBar: buildCustomAppBar(context, category),
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           ProductsList(

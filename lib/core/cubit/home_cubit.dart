@@ -32,6 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
       getFavoriteProducts();
       search(query);
       getProductsByCategory(category);
+
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
@@ -111,6 +112,6 @@ class HomeCubit extends Cubit<HomeState> {
         }
       }
     }
-    log(favoriteProductList[0].productName.toString());
+    // log(favoriteProductList[0].productName.toString());
   }
 }
