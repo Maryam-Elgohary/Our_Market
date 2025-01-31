@@ -6,21 +6,21 @@ import 'package:our_market/core/cubit/home_cubit.dart';
 import 'package:our_market/core/models/product_model.dart';
 
 class ProductsList extends StatelessWidget {
-  const ProductsList({
-    super.key,
-    this.shrinkWrap,
-    this.physics,
-  });
+  const ProductsList({super.key, this.shrinkWrap, this.physics, this.query});
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
+  final String? query;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getProducts(),
+      create: (context) => HomeCubit()..getProducts(query: query),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          List<ProductModel> products = context.read<HomeCubit>().products;
+          List<ProductModel> products = query != null
+              ? context.read<HomeCubit>().searchResults
+              : context.read<HomeCubit>().products;
           return state is GetDataLoading
               ? const CustomCircleProIndicator()
               : ListView.builder(
