@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:our_market/core/functions/api_services.dart';
 import 'package:our_market/views/product_details/logic/models/rate.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'product_details_state.dart';
 
@@ -14,6 +15,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   List<Rate> rates = []; //rate ==> int
   int averageRate = 0;
+  int userRate = 5;
   Future<void> getRates({required String productId}) async {
     emit(GetRateLoading());
     try {
@@ -24,9 +26,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       }
       print("The user rate is:");
       log(rates[0].rate.toString());
-      getAverageRate();
+      _getAverageRate();
+      _getUserRate();
 
-      log(averageRate.toString());
       emit(GetRateSuccess());
     } catch (e) {
       log(e.toString());
@@ -34,7 +36,17 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     }
   }
 
-  void getAverageRate() {
+  void _getUserRate() {
+    List<Rate> userRates = rates
+        .where((Rate rate) =>
+            rate.forUser == Supabase.instance.client.auth.currentUser!.id)
+        .toList();
+    if (userRates.isNotEmpty) {
+      userRate = userRates[0].rate!;
+    }
+  }
+
+  void _getAverageRate() {
     for (var userRate in rates) {
       log(userRate.rate.toString());
       if (userRate.rate != null) {
