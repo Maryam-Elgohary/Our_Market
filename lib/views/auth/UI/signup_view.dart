@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/custom_circle_pro_indicator.dart';
+import 'package:our_market/core/functions/navigate_without_back.dart';
 import 'package:our_market/core/functions/show_msg.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_row_with_arrow.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_text_btn.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_text_field.dart';
 import 'package:our_market/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:our_market/views/nav_bar/UI/main_home_view.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -28,8 +30,13 @@ class _SignupViewState extends State<SignupView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is SignUpSuccess || state is GoogleSignInSuccess) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainHomeView()));
+          UserDataModel userDataModel =
+              context.read<AuthenticationCubit>().userDataModel!;
+          navigateWithoutBack(
+              context,
+              MainHomeView(
+                userDataModel: userDataModel,
+              ));
         }
         if (state is SignUpError) {
           showMsg(context, state.message);

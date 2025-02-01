@@ -12,6 +12,7 @@ import 'package:our_market/views/auth/UI/widgets/custom_text_btn.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_text_field.dart';
 import 'package:our_market/views/auth/logic/cubit/authentication_cubit.dart';
 import 'package:our_market/views/nav_bar/UI/main_home_view.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -30,7 +31,8 @@ class _LoginViewState extends State<LoginView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is LoginSuccess || state is GoogleSignInSuccess) {
-          navigateWithoutBack(context, MainHomeView());
+          UserDataModel userDataModel = context.read<AuthenticationCubit>().userDataModel!;
+          navigateWithoutBack(context, MainHomeView(userDataModel: userDataModel,));
         }
         if (state is LoginError) {
           showMsg(context, state.message);

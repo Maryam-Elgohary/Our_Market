@@ -22,7 +22,7 @@ class _MainHomeViewState extends State<MainHomeView> {
   late List<Widget> views;
   @override
   void initState() {
-    List<Widget> views = [
+    views = [
       HomeView(
         userDataModel: widget.userDataModel,
       ),
