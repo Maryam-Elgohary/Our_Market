@@ -6,11 +6,12 @@ import 'package:our_market/core/functions/navigate_to.dart';
 import 'package:our_market/core/functions/sensitive_data.dart';
 import 'package:our_market/views/home/UI/search_view.dart';
 import 'package:our_market/views/home/UI/widgets/categories_list.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
-
+  const HomeView({super.key, required this.userDataModel});
+  final UserDataModel userDataModel;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -28,13 +29,12 @@ class _HomeViewState extends State<HomeView> {
       integrationMobileWalletId:
           integrationMobileWalletId, // Required: Found under Developers -> Payment Integrations -> Mobile Wallet ID
 
-      // // Optional User Data
-      // userData: UserData(
-      //   email: "User Email", // Optional: Defaults to 'NA'
-      //   phone: "User Phone", // Optional: Defaults to 'NA'
-      //   name: "User First Name", // Optional: Defaults to 'NA'
-      //   lastName: "User Last Name", // Optional: Defaults to 'NA'
-      // ),
+      // Optional User Data
+      userData: UserData(
+        email: widget.userDataModel.email, // Optional: Defaults to 'NA'
+        //  phone: "User Phone", // Optional: Defaults to 'NA'
+        name: widget.userDataModel.name, // Optional: Defaults to 'NA'
+      ),
 
       // Optional Style Customizations
       style: Style(

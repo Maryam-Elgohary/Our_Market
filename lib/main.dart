@@ -38,7 +38,10 @@ class OurMarket extends StatelessWidget {
           useMaterial3: true,
         ),
         home: client.auth.currentUser != null
-            ? MainHomeView()
+            ? MainHomeView(
+                userDataModel:
+                    context.read<AuthenticationCubit>().userDataModel!,
+              )
             : const LoginView(),
       ),
     );

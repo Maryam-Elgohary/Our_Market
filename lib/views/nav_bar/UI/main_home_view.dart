@@ -7,17 +7,32 @@ import 'package:our_market/views/favorite/UI/favorite_view.dart';
 import 'package:our_market/views/home/UI/home_view.dart';
 import 'package:our_market/views/nav_bar/logic/cubit/nav_bar_cubit.dart';
 import 'package:our_market/views/profile/UI/profile_view.dart';
+import 'package:our_market/views/profile/models/user_model.dart';
 import 'package:our_market/views/store/UI/store_view.dart';
 
-class MainHomeView extends StatelessWidget {
-  MainHomeView({super.key});
+class MainHomeView extends StatefulWidget {
+  MainHomeView({super.key, required this.userDataModel});
+  final UserDataModel userDataModel;
 
-  final List<Widget> views = [
-    const HomeView(),
-    const StoreView(),
-    const FavoriteView(),
-    const ProfileView()
-  ];
+  @override
+  State<MainHomeView> createState() => _MainHomeViewState();
+}
+
+class _MainHomeViewState extends State<MainHomeView> {
+  late List<Widget> views;
+  @override
+  void initState() {
+    List<Widget> views = [
+      HomeView(
+        userDataModel: widget.userDataModel,
+      ),
+      const StoreView(),
+      const FavoriteView(),
+      const ProfileView()
+    ];
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +47,8 @@ class MainHomeView extends StatelessWidget {
                 color: AppColors.kWhiteColor,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                 child: GNav(
                     onTabChange: (index) {
                       cubit.changeCurrentIndex(index);
@@ -42,8 +58,8 @@ class MainHomeView extends StatelessWidget {
                     hoverColor:
                         AppColors.kPrimaryColor, // tab button hover color
                     //  curve: Curves.easeOutExpo, // tab animation curves
-                    duration:
-                        const Duration(milliseconds: 400), // tab animation duration
+                    duration: const Duration(
+                        milliseconds: 400), // tab animation duration
                     gap: 8, // the tab button gap between icon and text
                     color: AppColors.kGreyColor, // unselected icon color
                     activeColor:
