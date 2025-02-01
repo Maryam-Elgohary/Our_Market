@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/cache_image.dart';
@@ -5,6 +7,7 @@ import 'package:our_market/core/functions/navigate_to.dart';
 import 'package:our_market/core/models/product_model.dart';
 import 'package:our_market/views/auth/UI/widgets/custom_elevated_btn.dart';
 import 'package:our_market/views/product_details/UI/product_details_view.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 class ProductCard extends StatelessWidget {
   ProductCard(
@@ -100,7 +103,25 @@ class ProductCard extends StatelessWidget {
                       ),
                       CustomEBtn(
                         text: "Buy Now",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PaymentView(
+                                onPaymentSuccess: () {
+                                  // Handle payment success
+                                  log("Payment Success");
+                                },
+                                onPaymentError: () {
+                                  // Handle payment failure
+                                  log("Payment Failure");
+                                },
+                                price: double.parse(product
+                                    .price!), // Required: Total price (e.g., 100 for 100 EGP)
+                              ),
+                            ),
+                          );
+                        },
                       )
                     ],
                   )
