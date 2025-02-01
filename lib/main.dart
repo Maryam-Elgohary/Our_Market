@@ -42,8 +42,8 @@ class OurMarket extends StatelessWidget {
           ),
           home: client.auth.currentUser != null
               ? state is GetUserDataLoading
-                  ? Scaffold(
-                      body: const Center(
+                  ? const Scaffold(
+                      body: Center(
                         child: CustomCircleProIndicator(),
                       ),
                     )

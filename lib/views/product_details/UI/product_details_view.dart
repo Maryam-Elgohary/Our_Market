@@ -36,14 +36,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
 
           return Scaffold(
-            appBar: buildCustomAppBar(context, "Product Name"),
+            appBar: buildCustomAppBar(context, "${widget.product.productName}"),
             body: state is GetRateLoading || state is AddCommentLoading
                 ? const CustomCircleProIndicator()
                 : ListView(
                     children: [
-                      const CacheImage(
-                          url:
-                              "https://img.freepik.com/premium-psd/kitchen-product-podium-display-background_1101917-13418.jpg?w=900"),
+                      CacheImage(url: "${widget.product.imageUrl}"),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 16),
@@ -53,7 +51,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Product Name",
+                                  "${widget.product.productName}",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text("${widget.product.price} LE")
@@ -80,7 +78,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             const SizedBox(
                               height: 30,
                             ),
-                            const Text("Product Description"),
+                            Text("${widget.product.description}"),
                             const SizedBox(
                               height: 20,
                             ),
