@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:our_market/core/functions/api_services.dart';
 import 'package:our_market/core/models/favorite_product.dart';
 import 'package:our_market/core/models/product_model.dart';
+import 'package:our_market/core/models/puchase_table.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'home_state.dart';
@@ -22,6 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
     searchResults = [];
     categoryProducts = [];
     favoriteProductList = [];
+    userOrders = [];
     emit(GetDataLoading());
     try {
       Response response = await _apiServices.getData(
@@ -32,7 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
       getFavoriteProducts();
       search(query);
       getProductsByCategory(category);
-
+      getUserOrdersProducts();
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
@@ -125,5 +127,20 @@ class HomeCubit extends Cubit<HomeState> {
       log(e.toString());
       emit(BuyProductError());
     }
+  }
+
+  //get user orders
+  List<ProductModel> userOrders = [];
+  void getUserOrdersProducts() {
+    for (ProductModel product in products) {
+      if (product.purchaseTable != null && product.purchaseTable!.isNotEmpty) {
+        for (PurchaseTable userOrder in product.purchaseTable!) {
+          if (userOrder.forUser == userId) {
+            userOrders.add(product);
+          }
+        }
+      }
+    }
+    // log(favoriteProductList[0].productName.toString());
   }
 }

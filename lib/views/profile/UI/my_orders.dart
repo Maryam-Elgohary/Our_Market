@@ -10,6 +10,7 @@ class MyOrdersView extends StatelessWidget {
     return Scaffold(
       appBar: buildCustomAppBar(context, "My Orders"),
       body: const ProductsList(
+        isMyOrdersView: true,
         shrinkWrap: false,
         physics: BouncingScrollPhysics(),
       ),
